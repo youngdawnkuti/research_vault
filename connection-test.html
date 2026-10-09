@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Research Vault — Connection Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: #fffaf3;
+      color: #300002;
+    }
+
+    h1 { color: #8b1428; }
+
+    button {
+      padding: 12px 18px;
+      background: #8b1428;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #status { margin-top: 20px; }
+    article {
+      padding: 15px;
+      margin: 15px 0;
+      background: white;
+      border: 1px solid #eadcc8;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Research Vault</h1>
+  <p>Testing the connection to our research database.</p>
+
+  <button id="testButton">Test database connection</button>
+  <p id="status">Ready to test.</p>
+  <div id="articles"></div>
+
+  <script type="module">
+    import { createClient }
+      from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    const SUPABASE_URL =
+      "https://yswoqzcipvkpbrqqbucu.supabase.co";
+
+    // Paste your Supabase PUBLISHABLE key between the quotes.
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_WvvZJk6SDYdV7_foZotolg_FtpGXx9f";
+
+    const supabase = createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const status = document.getElementById("status");
+    const articlesBox = document.getElementById("articles");
+    const button = document.getElementById("testButton");
+
+    button.addEventListener("click", async () => {
+      status.textContent = "Connecting to Supabase...";
+      articlesBox.replaceChildren();
+
+      try {
+        const { data, error } = await supabase
+          .from("articles")
+          .select("title, summary, category, slug")
+          .eq("published", true)
+          .eq("is_premium", false);
+
+        if (error) throw error;
+
+        status.textContent =
+          `Connection successful! Found ${data.length} published free article(s).`;
+
+        if (data.length === 0) {
+          articlesBox.textContent =
+            "Connected, but no free articles were returned.";
+        }
+
+        data.forEach((article) => {
+          const card = document.createElement("article");
+          const title = document.createElement("h2");
+          const summary = document.createElement("p");
+          const category = document.createElement("small");
+
+          title.textContent = article.title;
+          summary.textContent = article.summary || "";
+          category.textContent = article.category || "Research";
+
+          card.append(title, summary, category);
+          articlesBox.appendChild(card);
+        });
+      } catch (error) {
+        status.textContent =
+          "Connection failed: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

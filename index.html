@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="In-depth research into remarkable people, businesses, and decisions.">
+  <title>The Research Vault | Beyond Success</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="index.html">THE <span>RESEARCH VAULT</span></a>
+    <nav>
+      <a href="#research">Research</a>
+      <a href="#membership">Membership</a>
+      <a href="#about">About</a>
+      <button class="outline-btn" id="loginBtn">Log in</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">KNOWLEDGE BEHIND THE ACHIEVEMENT</p>
+      <h1>Success has a story.<br><span>We uncover it.</span></h1>
+      <p class="hero-text">
+        Explore the decisions, opportunities, failures, beliefs,
+        and turning points behind remarkable lives and businesses.
+      </p>
+      <a class="gold-btn" href="#research">Explore the research</a>
+    </section>
+
+    <section class="intro" id="about">
+      <p class="eyebrow">OUR PURPOSE</p>
+      <h2>Look beyond the headlines.</h2>
+      <p>
+        We study the full story: not just what people achieved,
+        but how they thought, what they overcame, and what their
+        experiences can teach us.
+      </p>
+    </section>
+
+    <section class="research-section" id="research">
+      <p class="eyebrow">THE LIBRARY</p>
+      <h2>Explore our research</h2>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="free">Free</button>
+        <button class="filter" data-filter="premium">Premium</button>
+      </div>
+
+      <div class="article-grid">
+        <article class="article-card" data-type="free">
+          <p class="category">FOUNDER STORIES · FREE</p>
+          <h3>What can we learn from remarkable founders?</h3>
+          <p>A starting point for examining the choices behind success.</p>
+          <button class="read-link" data-article="free">
+            Read free article →
+          </button>
+        </article>
+
+        <article class="article-card" data-type="premium">
+          <p class="category">BUSINESS ANALYSIS · PREMIUM</p>
+          <h3>Inside the decisions that build a company</h3>
+          <p>A deeper investigation into strategy, risk, and opportunity.</p>
+          <button class="read-link" data-article="premium">
+            <span aria-hidden="true">🔒</span> Member access
+          </button>
+        </article>
+
+        <article class="article-card" data-type="premium">
+          <p class="category">LIFE &amp; PSYCHOLOGY · PREMIUM</p>
+          <h3>The turning points that change a life</h3>
+          <p>Explore setbacks, personal choices, and defining moments.</p>
+          <button class="read-link" data-article="premium">
+            <span aria-hidden="true">🔒</span> Member access
+          </button>
+        </article>
+      </div>
+
+      <div class="notice" id="notice" role="status" aria-live="polite" hidden></div>
+    </section>
+
+    <section class="membership" id="membership">
+      <p class="eyebrow">GO DEEPER</p>
+      <h2>Choose how you read.</h2>
+      <p>Explore individual reports or unlock a growing research library.</p>
+
+      <div class="plans">
+        <div class="plan">
+          <h3>Individual Report</h3>
+          <p>Purchase a specific in-depth research article.</p>
+          <p class="price">Pay per report</p>
+          <button class="gold-btn purchase-btn">Coming soon</button>
+        </div>
+
+        <div class="plan featured">
+          <p class="category">FOR REGULAR READERS</p>
+          <h3>Full Membership</h3>
+          <p>Read eligible premium research throughout your subscription.</p>
+          <p class="price">Monthly or yearly</p>
+          <button class="gold-btn purchase-btn">Coming soon</button>
+        </div>
+      </div>
+      <p class="small-note">
+        Payments and member access are not enabled yet.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="logo" href="#">THE <span>RESEARCH VAULT</span></a>
+    <p>Research deeply. Think independently.</p>
+    <p>© 2026 The Research Vault</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

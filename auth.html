@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader Account | The Research Vault</title>
+  <link rel="stylesheet" href="auth.css">
+  <script type="module" src="auth.js"></script>
+</head>
+<body>
+  <main class="auth-container">
+    <a class="brand" href="index.html">THE RESEARCH VAULT</a>
+    <p class="tagline">Research deeply. Think independently.</p>
+
+    <div class="auth-card">
+      <h1>Your research journey starts here.</h1>
+      <p class="intro">Create an account or sign in to your reader account.</p>
+
+      <div class="tabs">
+        <button type="button" id="showSignup" class="tab active">Create account</button>
+        <button type="button" id="showLogin" class="tab">Sign in</button>
+      </div>
+
+      <form id="signupForm">
+        <label for="signupEmail">Email address</label>
+        <input id="signupEmail" type="email" autocomplete="email" required>
+
+        <label for="signupPassword">Password</label>
+        <input id="signupPassword" type="password"
+          autocomplete="new-password" minlength="6" required>
+        <small>Use at least 6 characters, or more if your password policy requires it.</small>
+
+        <button class="primary" type="submit">Create my account</button>
+      </form>
+
+      <form id="loginForm" hidden>
+        <label for="loginEmail">Email address</label>
+        <input id="loginEmail" type="email" autocomplete="email" required>
+
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password"
+          autocomplete="current-password" required>
+
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+
+      <section id="accountPanel" hidden>
+        <h2>You're signed in!</h2>
+        <p id="accountEmail"></p>
+        <p>Your reader account is active. Premium access will be added after we build and test the membership system.</p>
+        <button id="logoutButton" class="secondary" type="button">Sign out</button>
+      </section>
+
+      <p id="message" role="status" aria-live="polite"></p>
+      <a class="back-link" href="index.html">← Back to homepage</a>
+    </div>
+
+    <p class="footer">Thoughtful research. Deeper understanding.</p>
+  </main>
+</body>
+</html>

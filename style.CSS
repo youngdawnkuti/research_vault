@@ -1,0 +1,315 @@
+
+:root {
+  --burgundy: #300008;
+  --wine: #590c1b;
+  --gold: #f5c65d;
+  --cream: #fbf6ee;
+  --ink: #261b1b;
+  --muted: #776b68;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar {
+  background: var(--burgundy);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 7%;
+  gap: 24px;
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  font-size: 13px;
+}
+
+button,
+.gold-btn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #c78320;
+  outline-offset: 4px;
+}
+
+.outline-btn {
+  padding: 10px 17px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: white;
+}
+
+.hero {
+  background: var(--burgundy);
+  color: white;
+  text-align: center;
+  padding: 100px 20px 115px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #9b6320;
+}
+
+.hero .eyebrow {
+  color: var(--gold);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 1.12;
+  margin: 22px 0;
+}
+
+h1 span {
+  color: var(--gold);
+}
+
+.hero-text {
+  max-width: 570px;
+  margin: 0 auto 30px;
+  color: #e4d9d7;
+}
+
+.gold-btn {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--burgundy);
+  padding: 13px 22px;
+}
+
+.gold-btn:hover {
+  background: #ffda83;
+}
+
+.intro,
+.research-section,
+.membership {
+  padding: 75px 7%;
+}
+
+.intro {
+  text-align: center;
+  max-width: 850px;
+  margin: auto;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.intro > p:last-child,
+.membership > p:not(.eyebrow) {
+  color: var(--muted);
+  max-width: 650px;
+}
+
+.intro > p:last-child {
+  margin: auto;
+}
+
+.research-section {
+  background: #f1e8dc;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.filter {
+  padding: 9px 16px;
+  background: white;
+  color: var(--ink);
+  border: 1px solid #ded1c3;
+}
+
+.filter.active {
+  background: var(--burgundy);
+  color: white;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.article-card,
+.plan {
+  background: white;
+  border: 1px solid #e8ddd1;
+  padding: 26px;
+  border-radius: 6px;
+}
+
+.category {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #9b6320;
+}
+
+.article-card h3,
+.plan h3 {
+  font-family: Georgia, serif;
+  font-size: 23px;
+  line-height: 1.35;
+}
+
+.article-card > p:not(.category),
+.plan > p:not(.category) {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.read-link {
+  padding: 10px 0;
+  background: none;
+  color: var(--wine);
+  text-align: left;
+}
+
+.membership {
+  text-align: center;
+}
+
+.membership > p:not(.eyebrow) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 850px;
+  margin: 35px auto 20px;
+  text-align: left;
+}
+
+.featured {
+  border: 2px solid var(--wine);
+}
+
+.price {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: var(--burgundy) !important;
+}
+
+.small-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--burgundy);
+  color: #e4d9d7;
+  text-align: center;
+  padding: 35px 20px;
+  font-size: 12px;
+}
+
+footer .logo {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+footer p {
+  margin-bottom: 8px;
+}
+
+.notice {
+  background: white;
+  border-left: 4px solid #9b6320;
+  margin-top: 24px;
+  padding: 18px;
+}
+
+.notice[hidden] {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  .hero {
+    padding: 75px 22px;
+  }
+
+  .article-grid,
+  .plans {
+    grid-template-columns: 1fr;
+  }
+
+  .intro,
+  .research-section,
+  .membership {
+    padding: 55px 6%;
+  }
+}
