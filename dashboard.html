@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard | The Research Vault</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script type="module" src="dashboard.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="index.html" class="brand">The Research Vault</a>
+    <button id="logoutBtn" class="logout-btn" hidden>
+      Log out
+    </button>
+  </header>
+
+  <main class="container">
+    <p id="loadingMessage">Checking your account...</p>
+
+    <section id="dashboard" hidden>
+      <p class="eyebrow">MEMBER SPACE</p>
+      <h1>Welcome to your vault.</h1>
+      <p class="intro">
+        Your space for exploring the decisions, ideas,
+        and stories behind remarkable success.
+      </p>
+
+      <div class="account-card">
+        <span class="label">SIGNED IN AS</span>
+        <p id="memberEmail" class="member-email"></p>
+        <span class="status">Account connected</span>
+      </div>
+
+      <h2>Your research</h2>
+
+      <div class="research-card">
+        <div class="research-icon">📚</div>
+        <div>
+          <h3>Explore the research</h3>
+          <p>
+            Visit the main website to discover the
+            research currently available.
+          </p>
+          <a href="index.html" class="primary-link">
+            Explore The Research Vault →
+          </a>
+        </div>
+      </div>
+
+      <p class="note">
+        Your membership dashboard is ready.
+        More library and account features can be added next.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
