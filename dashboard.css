@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f8f6f3;
+  color: #292323;
+  font-family: Arial, sans-serif;
+}
+
+.topbar {
+  background: #2a050b;
+  color: white;
+  padding: 20px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  color: #ffd24d;
+  text-decoration: none;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.logout-btn {
+  border: 1px solid #ffd24d;
+  background: transparent;
+  color: white;
+  border-radius: 7px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 900px;
+  margin: 55px auto;
+  padding: 0 22px;
+}
+
+.eyebrow,
+.label {
+  color: #9b6421;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 46px);
+  margin: 12px 0;
+}
+
+.intro {
+  color: #6b6262;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.account-card,
+.research-card {
+  background: white;
+  border: 1px solid #e8e0da;
+  border-radius: 14px;
+  padding: 24px;
+  margin: 28px 0;
+}
+
+.member-email {
+  overflow-wrap: anywhere;
+  font-weight: bold;
+}
+
+.status {
+  color: #26734d;
+  font-size: 13px;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+.research-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.research-icon {
+  font-size: 30px;
+}
+
+.research-card h3 {
+  margin-top: 0;
+}
+
+.research-card p,
+.note {
+  color: #6b6262;
+  line-height: 1.7;
+}
+
+.primary-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #8a1628;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.primary-link:hover {
+  text-decoration: underline;
+}
+
+.note {
+  font-size: 13px;
+  margin-top: 30px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-top: 35px;
+  }
+
+  .research-card {
+    padding: 18px;
+  }
+}
