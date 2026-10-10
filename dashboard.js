@@ -7,7 +7,7 @@ const SUPABASE_URL =
 // Copy the SAME publishable key already used in auth.js.
 // Never put a secret or service-role key in browser code.
 const SUPABASE_PUBLISHABLE_KEY =
-  "PASTE_YOUR_EXISTING_PUBLISHABLE_KEY_HERE";
+  "sb_publishable_WvvZJk6SDYdV7_foZotolg_FtpGXx9f";
 
 const supabase = createClient(
   SUPABASE_URL,
