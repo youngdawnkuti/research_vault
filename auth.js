@@ -93,10 +93,14 @@ loginForm.addEventListener("submit", async (event) => {
       password
     });
 
-    if (error) throw error;
+    
+if (error) throw error;
 
-    loginForm.reset();
-    showMessage("Sign-in successful.");
+loginForm.reset();
+showMessage("Sign-in successful. Opening your dashboard...");
+
+window.location.href = "dashboard.html";
+
   } catch (error) {
     showMessage("Sign-in failed: " + error.message);
   } finally {
