@@ -1,86 +1,208 @@
 
+/* ========================================
+   THE RESEARCH VAULT — ARTICLE READER
+   ======================================== */
+
+:root {
+  --burgundy: #2a050b;
+  --ruby: #d91b38;
+  --gold: #ffd24d;
+  --ivory: #fffbf8;
+  --paper: #ffffff;
+  --ink: #302126;
+  --muted: #786b6e;
+  --border: #eee3df;
+  --soft-gold: #fff4cf;
+  --soft-ruby: #fff0f2;
+}
+
+/* Reset */
+
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  background: #fffaf7;
-  color: #2a050b;
-  font-family: Arial, sans-serif;
-  line-height: 1.7;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Navigation */
 
 .topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 20px;
   padding: 20px 7%;
-  background: #2a050b;
+  background: var(--burgundy);
+  border-bottom: 1px solid #51232d;
 }
 
 .brand {
-  color: #ffd24d;
-  font-weight: bold;
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .back-link {
-  color: white;
+  color: #f8e9e9;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
+
+.back-link:hover {
+  color: var(--gold);
+}
+
+/* Main reading area */
 
 .article-container {
-  width: min(800px, 90%);
-  margin: 55px auto;
+  width: min(780px, 88%);
+  margin: 72px auto 100px;
 }
 
+/* Category and article heading */
+
 .eyebrow {
-  color: #d91b38;
-  font-size: 0.85rem;
-  font-weight: bold;
+  margin: 0 0 22px;
+  color: var(--ruby);
+  font-family: Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.6;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.2;
+  max-width: 740px;
+  margin: 0 0 25px;
+  color: var(--burgundy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 5.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -1.8px;
+  line-height: 1.12;
 }
 
+/* Introductory summary */
+
 .article-summary {
-  color: #66585a;
-  font-size: 1.15rem;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.85;
 }
+
+/* Access label */
 
 .access-label {
   display: inline-block;
-  padding: 5px 12px;
-  margin: 10px 0 25px;
-  border-radius: 20px;
-  background: #fff0bd;
-  color: #2a050b;
-  font-weight: bold;
+  margin: 0 0 35px;
+  padding: 7px 14px;
+  border: 1px solid #f1d983;
+  border-radius: 4px;
+  background: var(--soft-gold);
+  color: var(--burgundy);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
+
+/* Article text */
 
 .article-body {
-  margin-top: 25px;
-  white-space: pre-wrap;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  color: #3e3437;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.12rem;
+  line-height: 2;
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
+
+/* Loading and status message */
 
 #articleMessage {
-  padding: 20px 0;
+  padding: 25px 0;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
 }
 
-@media (max-width: 500px) {
+/* Keyboard accessibility */
+
+a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Mobile design */
+
+@media (max-width: 600px) {
   .topbar {
-    padding: 16px 5%;
-    flex-wrap: wrap;
+    padding: 17px 5%;
+    gap: 12px;
+  }
+
+  .brand {
+    max-width: 190px;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+  }
+
+  .back-link {
+    font-size: 0.82rem;
   }
 
   .article-container {
-    margin-top: 30px;
+    width: 90%;
+    margin: 42px auto 65px;
+  }
+
+  .eyebrow {
+    margin-bottom: 17px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    letter-spacing: -0.8px;
+  }
+
+  .article-summary {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .access-label {
+    margin-bottom: 25px;
+  }
+
+  .article-body {
+    padding-top: 23px;
+    font-size: 1.04rem;
+    line-height: 1.9;
   }
 }
