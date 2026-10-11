@@ -107,7 +107,6 @@ async function loadDashboard() {
 
   await loadResearchLibrary();
 }
-}
 
 logoutBtn.addEventListener("click", async () => {
   logoutBtn.disabled = true;
