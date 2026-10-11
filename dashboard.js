@@ -47,7 +47,9 @@ async function loadResearchLibrary() {
 
   data.forEach((article) => {
     const card = document.createElement("div");
-    card.className = "research-card";
+    card.className = article.is_premium
+  ? "research-card premium-card"
+  : "research-card free-card";
 
     const icon = document.createElement("div");
     icon.className = "research-icon";
@@ -66,7 +68,9 @@ async function loadResearchLibrary() {
       article.summary || "Explore this research article.";
 
     const access = document.createElement("span");
-    access.className = "access-label";
+    access.className = article.is_premium
+  ? "access-label premium-label"
+  : "access-label free-label";
     access.textContent = article.is_premium ? "Premium" : "Free";
 
     const link = document.createElement("a");
