@@ -13,9 +13,12 @@ const supabase = createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
+
 const form = document.getElementById("articleForm");
 const publishButton = document.querySelector(".publish-button");
 const securityNote = document.querySelector(".security-note");
+
+let adminVerified = false;
 
 async function checkAdminAccess() {
   securityNote.textContent = "Checking administrator access...";
@@ -28,10 +31,7 @@ async function checkAdminAccess() {
     return;
   }
 
-  const user = data.user;
-
-  // Read the role from trusted application metadata.
-  if (user.app_metadata?.role !== "admin") {
+  if (data.user.app_metadata?.role !== "admin") {
     document.body.replaceChildren();
 
     const message = document.createElement("p");
@@ -45,8 +45,76 @@ async function checkAdminAccess() {
     return;
   }
 
+  adminVerified = true;
+  publishButton.disabled = false;
   securityNote.textContent =
-    "Administrator recognised. Publishing is not enabled yet.";
+    "Administrator recognised. You can now save articles.";
 }
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!adminVerified) {
+    securityNote.textContent =
+      "Administrator verification is required.";
+    return;
+  }
+
+  const title = document.getElementById("title").value.trim();
+  const slug = document.getElementById("slug").value.trim();
+  const category = document.getElementById("category").value.trim();
+  const summary = document.getElementById("summary").value.trim();
+  const content = document.getElementById("content").value.trim();
+  const isPremium =
+    document.getElementById("is_premium").value === "true";
+  const published =
+    document.getElementById("published").value === "true";
+
+  if (!title || !slug || !category || !summary || !content) {
+    securityNote.textContent =
+      "Please complete all article fields before saving.";
+    return;
+  }
+
+  const cleanSlug = slug
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-");
+
+  publishButton.disabled = true;
+  publishButton.textContent = "Saving article...";
+  securityNote.textContent = "Sending your article to the library...";
+
+  try {
+    const { error } = await supabase
+      .from("articles")
+      .insert({
+        title,
+        slug: cleanSlug,
+        category,
+        summary,
+        content,
+        is_premium: isPremium,
+        published
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    securityNote.textContent = published
+      ? "Article saved and published successfully!"
+      : "Draft saved successfully! It is not visible to members yet.";
+
+    form.reset();
+  } catch (error) {
+    console.error("Article save error:", error);
+    securityNote.textContent =
+      "Could not save article: " + error.message;
+  } finally {
+    publishButton.disabled = !adminVerified;
+    publishButton.textContent = "Save Article";
+  }
+});
 
 checkAdminAccess();
