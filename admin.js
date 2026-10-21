@@ -118,3 +118,80 @@ form.addEventListener("submit", async (event) => {
 });
 
 checkAdminAccess();
+
+const managementList = document.getElementById("articleManagementList");
+const articleSearch = document.getElementById("articleSearch");
+const articleFilter = document.getElementById("articleFilter");
+
+let savedArticles = [];
+
+async function loadArticles() {
+  managementList.textContent = "Loading your research library...";
+
+  const { data, error } = await supabase
+    .from("articles")
+    .select("id, title, slug, category, summary, is_premium, published, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    managementList.textContent =
+      "Could not load articles: " + error.message;
+    return;
+  }
+
+  savedArticles = data || [];
+  displayArticles();
+}
+
+function displayArticles() {
+  const searchTerm = articleSearch.value.trim().toLowerCase();
+  const filter = articleFilter.value;
+
+  const filteredArticles = savedArticles.filter((article) => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm);
+
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "published" && article.published) ||
+      (filter === "draft" && !article.published) ||
+      (filter === "free" && !article.is_premium) ||
+      (filter === "premium" && article.is_premium);
+
+    return matchesSearch && matchesFilter;
+  });
+
+  managementList.replaceChildren();
+
+  if (filteredArticles.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent = "No matching articles found.";
+    managementList.appendChild(emptyMessage);
+    return;
+  }
+
+  filteredArticles.forEach((article) => {
+    const card = document.createElement("article");
+    card.className = "managed-article-card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = article.title;
+
+    const details = document.createElement("p");
+    details.textContent =
+      `${article.category} · ` +
+      `${article.is_premium ? "Premium" : "Free"} · ` +
+      `${article.published ? "Published" : "Draft"}`;
+
+    const summary = document.createElement("p");
+    summary.textContent = article.summary;
+
+    card.append(heading, details, summary);
+    managementList.appendChild(card);
+  });
+}
+
+articleSearch.addEventListener("input", displayArticles);
+articleFilter.addEventListener("change", displayArticles);
+
+loadArticles();
+
