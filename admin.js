@@ -117,7 +117,11 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-checkAdminAccess();
+checkAdminAccess().then(() => {
+  if (adminVerified) {
+    loadArticles();
+  }
+});
 
 const managementList = document.getElementById("articleManagementList");
 const articleSearch = document.getElementById("articleSearch");
@@ -193,5 +197,4 @@ function displayArticles() {
 articleSearch.addEventListener("input", displayArticles);
 articleFilter.addEventListener("change", displayArticles);
 
-loadArticles();
 
