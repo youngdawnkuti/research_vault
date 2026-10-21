@@ -66,9 +66,9 @@ form.addEventListener("submit", async (event) => {
   const summary = document.getElementById("summary").value.trim();
   const content = document.getElementById("content").value.trim();
   const isPremium =
-    document.getElementById("is_premium").value === "true";
+    document.getElementById("accessType").value === "true";
   const published =
-    document.getElementById("published").value === "true";
+    document.getElementById("publicationStatus").value === "published";
 
   if (!title || !slug || !category || !summary || !content) {
     securityNote.textContent =
