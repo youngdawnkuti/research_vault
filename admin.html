@@ -182,6 +182,48 @@
 
     </section>
 
+    <section class="editor-panel article-management">
+
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">YOUR CONTENT LIBRARY</p>
+          <h2>Manage your research</h2>
+        </div>
+
+        <span class="draft-badge">LIBRARY</span>
+      </div>
+
+      <p class="welcome-text">
+        View your saved research, update existing articles,
+        and control what appears in your members' library.
+      </p>
+
+      <div class="management-toolbar">
+        <label for="articleSearch">Find an article</label>
+        <input
+          type="search"
+          id="articleSearch"
+          placeholder="Search by article title..."
+        >
+
+        <label for="articleFilter">Filter articles</label>
+        <select id="articleFilter">
+          <option value="all">All articles</option>
+          <option value="published">Published</option>
+          <option value="draft">Drafts</option>
+          <option value="free">Free research</option>
+          <option value="premium">Premium research</option>
+        </select>
+      </div>
+
+      <div id="articleManagementList" aria-live="polite">
+        <p class="security-note">
+          Your saved articles will appear here.
+        </p>
+      </div>
+
+    </section>
+
     <p class="footer-note">
       THE RESEARCH VAULT &middot; A HOME FOR IDEAS WORTH EXPLORING
     </p>
