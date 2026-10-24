@@ -2,7 +2,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const SUPABASE_URL = "https://yswoqzcipvkpbrqqbucu.supabase.co";
 // Keep the same currently working publishable key used by auth.js.
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_WvvZJk6SDYd7_foZotolg_FtpGXx9f";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_WvvZJk6SDYdV7_foZotolg_FtpGXx9f";
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const $ = (id) => document.getElementById(id);
