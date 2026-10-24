@@ -97,20 +97,6 @@ async function checkAdminAccess() {
     return;
   }
 
-  if (data.user.app_metadata?.role !== "admin") {
-    document.body.replaceChildren();
-    const message = document.createElement("p");
-    message.textContent = "Access denied. Administrator permission is required.";
-    message.style.cssText = "margin:60px auto;max-width:600px;padding:24px;font-family:sans-serif;text-align:center;";
-    document.body.appendChild(message);
-    return;
-  }
-
-  adminVerified = true;
-  saveButton.disabled = false;
-  setMessage("Administrator verified. Your changes are saved to the research library.");
-}
-
 function updateFormat() {
   const isPremium = accessType.value === "true";
   freeEditor.hidden = isPremium;
