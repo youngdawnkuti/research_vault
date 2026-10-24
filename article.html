@@ -22,7 +22,32 @@
       <h1 id="articleTitle"></h1>
       <p id="articleSummary" class="article-summary"></p>
       <span id="articleAccess" class="access-label"></span>
-      <div id="articleBody" class="article-body"></div>
+      
+<div class="research-navigation">
+  <p id="readingProgress">Subtopic 1 of 1</p>
+
+  <label for="subtopicSelect">Research contents</label>
+  <select id="subtopicSelect">
+    <option value="">Loading subtopics...</option>
+  </select>
+</div>
+
+<div id="articleBody" class="article-body"></div>
+
+<div id="subtopicLockMessage" hidden>
+  <h2>This subtopic is locked</h2>
+  <p>Unlock this research to access all its subtopics during your access period.</p>
+</div>
+
+<div class="subtopic-controls">
+  <button id="previousSubtopic" type="button" disabled>
+    ← Previous
+  </button>
+  <button id="nextSubtopic" type="button" disabled>
+    Next →
+  </button>
+</div>
+
     </article>
   </main>
 </body>
