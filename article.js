@@ -52,12 +52,20 @@ async function loadArticle() {
     .eq("published", true)
     .maybeSingle();
 
-  if (articleError || !article) {
-    console.error("Article loading error:", articleError);
-    articleMessage.textContent =
-      "This article is unavailable or could not be loaded.";
-    return;
-  }
+ 
+if (articleError || !article) {
+  console.error(
+    "Article loading error:",
+    JSON.stringify(articleError, null, 2)
+  );
+
+  articleMessage.textContent = articleError
+    ? `Article error: ${articleError.message}`
+    : "Article not found or unavailable.";
+
+  return;
+}
+
 
   document.getElementById("articleTitle").textContent =
     article.title;
