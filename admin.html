@@ -3,232 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Research Studio | The Research Vault</title>
-
   <link rel="stylesheet" href="admin.css">
   <script type="module" src="admin.js"></script>
 </head>
-
 <body>
-
   <header class="admin-header">
-    <a href="index.html" class="brand">
-      THE RESEARCH <span>VAULT</span>
-    </a>
-
+    <a href="index.html" class="brand">THE RESEARCH <span>VAULT</span></a>
     <span class="studio-label">RESEARCH STUDIO</span>
   </header>
 
   <main class="admin-container">
-
     <section class="welcome-section">
       <p class="eyebrow">YOUR PRIVATE WORKSPACE</p>
-
       <h1>Build something <em>remarkable.</em></h1>
-
-      <p class="welcome-text">
-        Create thoughtful research, share valuable discoveries,
-        and publish stories that help people think differently.
-      </p>
+      <p class="welcome-text">Create thoughtful research, share valuable discoveries, and publish stories that help people think differently.</p>
     </section>
 
-    <section class="editor-panel">
-
+    <section class="editor-panel" id="editorPanel">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">CONTENT MANAGEMENT</p>
-          <h2>Create new research</h2>
+          <h2 id="editorHeading">Create new research</h2>
         </div>
-
-        <span class="draft-badge">NEW ARTICLE</span>
+        <span class="draft-badge" id="editorBadge">NEW ARTICLE</span>
       </div>
 
       <form id="articleForm">
-
+        <input type="hidden" id="editingArticleId" value="">
         <div class="form-group">
-          <label for="title">Article title</label>
-
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder="Give your research a compelling title"
-            required
-          >
+          <label for="title">Research title</label>
+          <input type="text" id="title" name="title" placeholder="Give your research a compelling title" required>
         </div>
 
         <div class="form-group">
           <label for="slug">Article URL slug</label>
-
-          <input
-            type="text"
-            id="slug"
-            name="slug"
-            placeholder="e.g. lessons-from-great-founders"
-            required
-          >
-
-          <small>
-            Use lowercase letters, numbers and hyphens.
-          </small>
+          <input type="text" id="slug" name="slug" placeholder="e.g. lessons-from-great-founders" required>
+          <small>Use lowercase letters, numbers and hyphens. This is the article's URL identifier.</small>
+          <button type="button" class="text-button" id="makeSlug">Generate slug from title</button>
         </div>
 
         <div class="form-group">
           <label for="category">Research category</label>
-
           <select id="category" name="category" required>
             <option value="">Choose a category</option>
             <option value="Founder Stories">Founder Stories</option>
             <option value="Business Strategy">Business Strategy</option>
-            <option value="Artificial Intelligence">
-              Artificial Intelligence
-            </option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
             <option value="Technology">Technology</option>
-            <option value="Personal Development">
-              Personal Development
-            </option>
+            <option value="Personal Development">Personal Development</option>
             <option value="Success Research">Success Research</option>
             <option value="Other">Other</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="summary">Short article summary</label>
-
-          <textarea
-            id="summary"
-            name="summary"
-            rows="3"
-            placeholder="What will readers discover in this research?"
-            required
-          ></textarea>
-
-          <small>
-            This description will appear on your research card.
-          </small>
+          <label for="summary">Research summary</label>
+          <textarea id="summary" name="summary" rows="3" placeholder="What will readers discover in this research?" required></textarea>
+          <small>This description appears on the research card.</small>
         </div>
-
-        <div class="form-group">
-          <label for="content">Full research article</label>
-
-          <textarea
-            id="content"
-            name="content"
-            class="content-editor"
-            rows="14"
-            placeholder="Begin writing your research here..."
-            required
-          ></textarea>
-
-          <small>
-            You can include your introduction, research findings,
-            analysis, conclusion and sources.
-          </small>
-        </div>
-
-        <div class="settings-divider"></div>
-
-        <h3>Publication settings</h3>
 
         <div class="settings-grid">
-
           <div class="form-group">
             <label for="accessType">Content access</label>
-
             <select id="accessType" name="accessType" required>
-              <option value="false">Free research</option>
-              <option value="true">Premium research</option>
+              <option value="false">Free research — single page</option>
+              <option value="true">Premium research — subtopics</option>
             </select>
-
-            <small>
-              Premium articles require authorised access.
-            </small>
           </div>
-
           <div class="form-group">
             <label for="publicationStatus">Publication status</label>
-
-            <select
-              id="publicationStatus"
-              name="publicationStatus"
-              required
-            >
-              <option value="draft">Save as draft</option>
-              <option value="published">Publish article</option>
+            <select id="publicationStatus" name="publicationStatus" required>
+              <option value="false">Save as draft</option>
+              <option value="true">Publish research</option>
             </select>
-
-            <small>
-              Drafts should remain hidden from the public library.
-            </small>
           </div>
-
         </div>
+
+        <section id="freeEditor" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">SINGLE-PAGE FORMAT</p>
+              <h3>Full article</h3>
+            </div>
+            <span class="format-tag">FREE</span>
+          </div>
+          <div class="form-group">
+            <label for="content">Article content</label>
+            <textarea id="content" class="content-editor" rows="16" placeholder="Write your complete free article here. You can use plain text and paragraphs."></textarea>
+            <small>Free research is stored in the main article record and appears as one page.</small>
+          </div>
+        </section>
+
+        <section id="premiumEditor" class="content-section" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">MULTI-PART FORMAT</p>
+              <h3>Research subtopics</h3>
+            </div>
+            <span class="format-tag premium-tag">PREMIUM</span>
+          </div>
+          <p class="helper-copy">Add each section separately. The first subtopic is readable by everyone, the second shows a preview, and later subtopics are locked for readers without access. Keep valuable full content in these subtopic fields—not in the main article content field.</p>
+          <div id="subtopicEditorList"></div>
+          <button type="button" class="secondary-button" id="addSubtopic">+ Add subtopic</button>
+        </section>
 
         <div class="form-actions">
-          <p class="security-note">
-            Publishing controls will be activated after
-            administrator access is secured.
-          </p>
-
-          
-<button type="submit" class="publish-button" disabled>
-  Publish article
-</button>
-
+          <p class="security-note" id="securityNote" aria-live="polite">Checking administrator access...</p>
+          <div class="action-row">
+            <button type="button" class="secondary-button" id="cancelEdit" hidden>Cancel editing</button>
+            <button type="submit" class="publish-button" id="saveArticle" disabled>Save research</button>
+          </div>
         </div>
-
       </form>
-
     </section>
 
     <section class="editor-panel article-management">
-
       <div class="panel-heading">
         <div>
           <p class="eyebrow">YOUR CONTENT LIBRARY</p>
           <h2>Manage your research</h2>
         </div>
-
         <span class="draft-badge">LIBRARY</span>
       </div>
-
-      <p class="welcome-text">
-        View your saved research, update existing articles,
-        and control what appears in your members' library.
-      </p>
-
+      <p class="welcome-text">Search, edit, and control publication status for your existing research.</p>
       <div class="management-toolbar">
-        <label for="articleSearch">Find an article</label>
-        <input
-          type="search"
-          id="articleSearch"
-          placeholder="Search by article title..."
-        >
-
-        <label for="articleFilter">Filter articles</label>
-        <select id="articleFilter">
-          <option value="all">All articles</option>
-          <option value="published">Published</option>
-          <option value="draft">Drafts</option>
-          <option value="free">Free research</option>
-          <option value="premium">Premium research</option>
-        </select>
+        <div class="form-group">
+          <label for="articleSearch">Find research</label>
+          <input type="search" id="articleSearch" placeholder="Search title, slug or category...">
+        </div>
+        <div class="form-group">
+          <label for="articleFilter">Filter research</label>
+          <select id="articleFilter">
+            <option value="all">All research</option>
+            <option value="published">Published</option>
+            <option value="draft">Drafts</option>
+            <option value="free">Free research</option>
+            <option value="premium">Premium research</option>
+          </select>
+        </div>
       </div>
-
-      <div id="articleManagementList" aria-live="polite">
-        <p class="security-note">
-          Your saved articles will appear here.
-        </p>
-      </div>
-
+      <div id="articleManagementList" aria-live="polite"><p class="security-note">Your saved research will appear here.</p></div>
     </section>
 
-    <p class="footer-note">
-      THE RESEARCH VAULT &middot; A HOME FOR IDEAS WORTH EXPLORING
-    </p>
-
+    <p class="footer-note">THE RESEARCH VAULT · A HOME FOR IDEAS WORTH EXPLORING</p>
   </main>
-
 </body>
 </html>
