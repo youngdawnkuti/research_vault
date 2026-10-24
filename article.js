@@ -1,3 +1,4 @@
+
 import { createClient } from
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
@@ -43,29 +44,26 @@ async function loadArticle() {
     return;
   }
 
-  // Load only the article's public metadata.
-  // Do not fetch the legacy full content field here.
-  const { data: article, error: articleError } = await supabase
-    .from("articles")
-    .select("id, title, slug, summary, category, is_premium, published")
-    .eq("slug", slug)
-    .eq("published", true)
-    .maybeSingle();
+  // Get safe article details without querying articles.content.
+  const { data: articleRows, error: articleError } = await supabase
+    .rpc("get_published_article_details", {
+      p_slug: slug
+    });
 
- 
-if (articleError || !article) {
-  console.error(
-    "Article loading error:",
-    JSON.stringify(articleError, null, 2)
-  );
+  if (articleError) {
+    console.error("Article loading error:", articleError);
+    articleMessage.textContent =
+      "We couldn't load this article. Please try again.";
+    return;
+  }
 
-  articleMessage.textContent = articleError
-    ? `Article error: ${articleError.message}`
-    : "Article not found or unavailable.";
+  const article = articleRows?.[0];
 
-  return;
-}
-
+  if (!article) {
+    articleMessage.textContent =
+      "This article is unavailable or has not been published.";
+    return;
+  }
 
   document.getElementById("articleTitle").textContent =
     article.title;
@@ -81,7 +79,25 @@ if (articleError || !article) {
 
   document.title = article.title + " | The Research Vault";
 
-  // Retrieve content through the controlled database function.
+  if (!article.is_premium) {
+    // Free research is a single-page article.
+    subtopicSelect.hidden = true;
+    readingProgress.hidden = true;
+    previousButton.hidden = true;
+    nextButton.hidden = true;
+    lockMessage.hidden = true;
+
+    articleBody.hidden = false;
+    articleBody.textContent =
+      article.free_content ||
+      "This article has not been written yet.";
+
+    articleMessage.hidden = true;
+    articleContent.hidden = false;
+    return;
+  }
+
+  // Premium research uses the protected subtopic function.
   const { data: results, error: subtopicError } = await supabase
     .rpc("get_research_subtopics", {
       p_article_id: article.id
@@ -102,18 +118,19 @@ if (articleError || !article) {
     return;
   }
 
+  subtopicSelect.hidden = false;
+  readingProgress.hidden = false;
+  previousButton.hidden = false;
+  nextButton.hidden = false;
+
   subtopicSelect.innerHTML = "";
 
   subtopics.forEach((subtopic, index) => {
     const option = document.createElement("option");
     option.value = String(index);
-
-    if (subtopic.access_level === "locked") {
-      option.textContent = `${index + 1}. ${subtopic.title} 🔒`;
-    } else {
-      option.textContent = `${index + 1}. ${subtopic.title}`;
-    }
-
+    option.textContent =
+      `${index + 1}. ${subtopic.title}` +
+      (subtopic.access_level === "locked" ? " 🔒" : "");
     subtopicSelect.appendChild(option);
   });
 
@@ -151,10 +168,7 @@ function showSubtopic(index) {
 
 subtopicSelect.addEventListener("change", () => {
   const index = Number(subtopicSelect.value);
-
-  if (Number.isInteger(index)) {
-    showSubtopic(index);
-  }
+  if (Number.isInteger(index)) showSubtopic(index);
 });
 
 previousButton.addEventListener("click", () => {
