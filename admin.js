@@ -41,55 +41,28 @@ function setBusy(value, label = "Save research") {
   saveButton.textContent = value ? "Saving..." : label;
 }
 
-
 async function checkAdminAccess() {
   saveButton.disabled = true;
   setMessage("Checking administrator access...");
+  const { data, error } = await supabase.auth.getUser();
 
-  try {
-    const { data, error } = await supabase.auth.getUser();
-
-    // Temporarily show the real error instead of redirecting.
-    if (error) {
-      console.error("Admin authentication check failed:", error);
-      setMessage(
-        "Authentication check failed: " + error.message +
-        ". Please send this message to ChatGPT.",
-        true
-      );
-      return;
-    }
-
-    if (!data.user) {
-      setMessage(
-        "No authenticated user was found on this page. " +
-        "Your login session may not be available to admin.html.",
-        true
-      );
-      return;
-    }
-
-    if (data.user.app_metadata?.role !== "admin") {
-      setMessage(
-        "Access denied. The signed-in user does not have the admin role."
-      , true);
-      return;
-    }
-
-    adminVerified = true;
-    saveButton.disabled = false;
-    setMessage("Administrator verified. Your changes are saved to the research library.");
-
-    // Continue loading the existing article list.
-    await loadArticles();
-
-  } catch (error) {
-    console.error("Unexpected admin page error:", error);
-    setMessage(
-      "Unexpected error: " + (error.message || String(error)),
-      true
-    );
+  if (error || !data.user) {
+    window.location.replace("auth.html");
+    return;
   }
+
+  if (data.user.app_metadata?.role !== "admin") {
+    document.body.replaceChildren();
+    const message = document.createElement("p");
+    message.textContent = "Access denied. Administrator permission is required.";
+    message.style.cssText = "margin:60px auto;max-width:600px;padding:24px;font-family:sans-serif;text-align:center;";
+    document.body.appendChild(message);
+    return;
+  }
+
+  adminVerified = true;
+  saveButton.disabled = false;
+  setMessage("Administrator verified. Your changes are saved to the research library.");
 }
 
 function updateFormat() {
