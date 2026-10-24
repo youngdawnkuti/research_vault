@@ -92,11 +92,6 @@ async function checkAdminAccess() {
   }
 }
 
-  if (error || !data.user) {
-    window.location.replace("auth.html");
-    return;
-  }
-
 function updateFormat() {
   const isPremium = accessType.value === "true";
   freeEditor.hidden = isPremium;
