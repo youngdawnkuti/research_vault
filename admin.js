@@ -250,14 +250,21 @@ function displayArticles() {
     edit.textContent = "Edit research";
     edit.addEventListener("click", () => editArticle(article.id));
 
-    const toggle = document.createElement("button");
-    toggle.type = "button";
-    toggle.className = "secondary-button";
-    toggle.textContent = article.published ? "Unpublish" : "Publish";
-    toggle.addEventListener("click", () => togglePublication(article));
 
-    actions.append(edit, toggle);
-    card.append(heading, meta, slug, summary, actions);
+const toggle = document.createElement("button");
+toggle.type = "button";
+toggle.className = "secondary-button";
+toggle.textContent = article.published ? "Unpublish" : "Publish";
+toggle.addEventListener("click", () => togglePublication(article));
+
+const deleteButton = document.createElement("button");
+deleteButton.type = "button";
+deleteButton.className = "secondary-button danger-button";
+deleteButton.textContent = "Delete research";
+deleteButton.addEventListener("click", () => deleteArticle(article));
+
+actions.append(edit, toggle, deleteButton);
+card.append(heading, meta, slug, summary, actions);
     managementList.appendChild(card);
   });
 }
@@ -330,6 +337,55 @@ async function togglePublication(article) {
   setMessage(next ? "Research published." : "Research unpublished.");
   await loadArticles();
 }
+
+
+async function deleteArticle(article) {
+  const confirmed = confirm(
+    `Permanently delete "${article.title}"?\n\n` +
+    "This cannot be undone. Any premium subtopics belonging to this research will also be deleted."
+  );
+
+  if (!confirmed) return;
+
+  setMessage("Deleting research...");
+
+  try {
+    // First try deleting the article directly.
+    let result = await supabase
+      .from("articles")
+      .delete()
+      .eq("id", article.id);
+
+    // If a foreign-key constraint prevents deletion, remove
+    // the associated premium subtopics and retry.
+    if (result.error?.code === "23503") {
+      const subtopicResult = await supabase
+        .from("article_subtopics")
+        .delete()
+        .eq("article_id", article.id);
+
+      if (subtopicResult.error) throw subtopicResult.error;
+
+      result = await supabase
+        .from("articles")
+        .delete()
+        .eq("id", article.id);
+    }
+
+    if (result.error) throw result.error;
+
+    setMessage(`"${article.title}" was deleted successfully.`);
+    await loadArticles();
+
+  } catch (error) {
+    console.error("Delete research error:", error);
+    setMessage(
+      "Could not delete research: " + error.message,
+      true
+    );
+  }
+}
+
 
 async function saveSubtopics(articleId, submitted) {
   const existingIds = new Set(currentSubtopics.map((item) => item.id));
